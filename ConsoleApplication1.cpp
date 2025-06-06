@@ -30,17 +30,35 @@ int main()
 
     // pliczek binaryny
     const char* filename = "data.bin";
-    int dataToWrite[5] = { 10, 20, 30, 40, 50 };
-    int dataRead[5] = { 0 };
 
-    saveToFile(filename, dataToWrite, 5);
-    readFromFile(filename, dataRead, 5);
+    int size;
+    std::cout << "Ile liczb chcesz zapisać? ";
+    std::cin >> size;
 
-    std::cout << "Odczytane dane:\n";
-    for (int i = 0; i < 5; ++i) {
-        std::cout << dataRead[i] << " ";
+    if (size <= 0) {
+        std::cerr << "Nieprawidłowy rozmiar.\n";
+        return 1;
+    }
+
+    int* userData = new int[size];
+    std::cout << "Podaj " << size << " liczb całkowitych:\n";
+    for (int i = 0; i < size; ++i) {
+        std::cin >> userData[i];
+    }
+
+    saveToFile(filename, userData, size);
+
+    int* readData = new int[size];
+    readFromFile(filename, readData, size);
+
+    std::cout << "Dane odczytane z pliku:\n";
+    for (int i = 0; i < size; ++i) {
+        std::cout << readData[i] << " ";
     }
     std::cout << std::endl;
+
+    delete[] userData;
+    delete[] readData;
 
     return 0;
 }
