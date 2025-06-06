@@ -2,6 +2,7 @@
 #include "Figure.h"
 #include "Box.h"
 #include "filehandler.h"
+#include "normalFile.h"
 
 int main()
 {   
@@ -58,6 +59,40 @@ int main()
     std::cout << std::endl;
 
     delete[] userData;
+    delete[] readData;
+
+
+
+    // pliczek zwykly
+    const char* nazwaPliku = "data.txt";
+
+    int size;
+    std::cout << "Ile liczb chcesz zapisać? ";
+    std::cin >> size;
+
+    if (size <= 0) {
+        std::cerr << "Nieprawidłowy rozmiar.\n";
+        return 1;
+    }
+
+    int* userDataNormalFile = new int[size];
+    std::cout << "Podaj " << size << " liczb całkowitych:\n";
+    for (int i = 0; i < size; ++i) {
+        std::cin >> userData[i];
+    }
+
+    saveToTextFile(nazwaPliku, userDataNormalFile, size);
+
+    int* readData = new int[size];
+    readFromTextFile(nazwaPliku, readData, size);
+
+    std::cout << "Dane odczytane z pliku:\n";
+    for (int i = 0; i < size; ++i) {
+        std::cout << readData[i] << " ";
+    }
+    std::cout << std::endl;
+
+    delete[] userDataNormalFile;
     delete[] readData;
 
     return 0;
